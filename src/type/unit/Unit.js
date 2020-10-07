@@ -215,11 +215,11 @@ export const createUnitClass = /* #__PURE__ */ factory(name, dependencies, ({
   function parseUnit () {
     let unitName = ''
 
-    // Alphanumeric characters only; matches [a-zA-Z0-9]
+    // Alphanumeric characters only; matches [a-zA-Z0-9°]
     let code = text.charCodeAt(index)
     while ((code >= 48 && code <= 57) ||
     (code >= 65 && code <= 90) ||
-    (code >= 97 && code <= 122)) {
+    (code >= 97 && code <= 122) || code === 176) {
       unitName += c
       next()
       code = text.charCodeAt(index)
@@ -228,7 +228,7 @@ export const createUnitClass = /* #__PURE__ */ factory(name, dependencies, ({
     // Must begin with [a-zA-Z]
     code = unitName.charCodeAt(0)
     if ((code >= 65 && code <= 90) ||
-      (code >= 97 && code <= 122)) {
+      (code >= 97 && code <= 122) || code === 176) {
       return unitName || null
     } else {
       return null
@@ -3035,7 +3035,7 @@ export const createUnitClass = /* #__PURE__ */ factory(name, dependencies, ({
       const c = name.charAt(i)
 
       const isValidAlpha = function (p) {
-        return /^[a-zA-Z]$/.test(p)
+        return /^[a-zA-Z°]$/.test(p)
       }
 
       const isDigit = function (c) {
